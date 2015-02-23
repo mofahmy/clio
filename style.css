@@ -1,0 +1,106 @@
+.wrapper {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.clearer {
+    clear:both;
+}
+
+
+hr {
+    border: none;
+    height: 1px;
+
+    color: black; //old IE       
+    background-color: black; //Modern Browsers     
+}
+
+
+html { 
+    overflow-y: scroll; 
+    font-size:95%
+}
+
+
+.checkbox-grid {
+    width:75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkbox-grid li {
+    display: block;
+    float: left;
+    width: 25%;
+    margin: .5em 0;
+}
+
+input[type=checkbox].css-checkbox {
+          display:none;
+        }
+
+        input[type=checkbox].css-checkbox + label.css-label {
+          padding-left:21px;
+          height:16px; 
+          display:inline-block;
+          line-height:16px;
+          background-repeat:no-repeat;
+          background-position: 0 0;
+          font-size:16px;
+          vertical-align:middle;
+          cursor:pointer;
+
+        }
+
+        input[type=checkbox].css-checkbox:checked + label.css-label {
+          background-position: 0 -16px;
+        }
+        label.css-label {
+      background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_49d296a3b3abe07d088f280a9006dfa3.png);
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+.getcfp-button {
+    -moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background-color:#ededed;
+    -webkit-border-top-left-radius:6px;
+    -moz-border-radius-topleft:6px;
+    border-top-left-radius:6px;
+    -webkit-border-top-right-radius:6px;
+    -moz-border-radius-topright:6px;
+    border-top-right-radius:6px;
+    -webkit-border-bottom-right-radius:6px;
+    -moz-border-radius-bottomright:6px;
+    border-bottom-right-radius:6px;
+    -webkit-border-bottom-left-radius:6px;
+    -moz-border-radius-bottomleft:6px;
+    border-bottom-left-radius:6px;
+    text-indent:0;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#777777;
+    font-family:Arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:35px;
+    line-height:35px;
+    width:100px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ffffff;
+}.getcfp-button:hover {
+    background-color:#dfdfdf;
+}.getcfp-button:active {
+    position:relative;
+    top:1px;
+}
