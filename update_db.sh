@@ -1,4 +1,7 @@
 #!/bin/sh
 
-sqlite3 /srv/http/clio/cfps.db "delete from event;"
-ruby /srv/http/clio/scrape_cfps.rb
+db_dir = $1
+ruby_dir = $2
+
+sqlite3 ${db_dir}/cfps.db "delete from event;"
+ruby ${ruby_dir}/scrape_cfps.rb
