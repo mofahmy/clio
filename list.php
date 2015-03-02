@@ -16,7 +16,7 @@ function print_html_begin() {
 </head>
 
 <body>
-    <center><a href="../clio"><img border="0" align="center" src="header.jpg"></a></center>
+    <center><a href="../clio"><img border="0" align="center" src="images/header.jpg"></a></center>
     <div>
     <center>
       <p>Click on a category name to view CFPs in that category.</p>

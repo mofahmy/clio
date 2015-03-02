@@ -46,7 +46,7 @@ function print_html_begin() {
 
 <body>
     
-    <center><a href="../clio"><img border="0" align="center" src="header.jpg"></a></center>
+    <center><a href="../clio"><img border="0" align="center" src="images/header.jpg"></a></center>
     <div>
       <center>
         <!--<h4>Welcome to Clio, a Call for Papers (CFP) harvester and indexer, updated daily. To get started:</h4>
