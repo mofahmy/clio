@@ -1,6 +1,0 @@
-HIGH PRIORITY
-
-MEDIUM PRIORITY
-
-LOW PRIORITY
-- Coreference resolution (e.g., 'AI' = 'artificial intelligence')
