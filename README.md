@@ -17,5 +17,5 @@ CFP data is adapted from WikiCFP[[2]](#links).
 
 
 ## Links <a name="links"></a>
-1. [Demo](http://mofahmy.com/clio))
+1. [Demo](http://mofahmy.com/clio)
 2. [WikiCFP](http://www.wikicfp.com)
