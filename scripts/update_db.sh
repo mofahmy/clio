@@ -1,7 +1,6 @@
 #!/bin/sh
 
-db_dir = $1
-ruby_dir = $2
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-sqlite3 ${db_dir}/cfps.db "delete from event;"
-ruby ${ruby_dir}/scrape_cfps.rb
+sqlite3 ${SCRIPT_DIR}/cfps.db "delete from event;"
+ruby ${SCRIPT_DIR}/scrape_cfps.rb

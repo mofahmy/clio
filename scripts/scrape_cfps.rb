@@ -1,6 +1,8 @@
 #!/usr/bin/ruby
 
-require 'net/http'
+require 'rubygems'
+require 'nokogiri'
+require 'open-uri'
 require 'sqlite3'
 
 $script_dir = File.dirname(__FILE__)
@@ -40,10 +42,9 @@ def scrape_cfp_list(category)
 
   until (content =~ /Expired/)
     uri = "http://www.wikicfp.com/cfp/call?conference=#{category_encoded}&page=#{page}"
-    response = Net::HTTP.get_response(URI.parse(uri));
-    body = response.body[/.*(Event.*)\|\sPage\s\d\s\|/m,1]
-
-    content << body.split(/<\/table>/).first
+    body = (Nokogiri::HTML(open(uri))).to_s
+        
+    content << body
     page += 1
   end
 
@@ -53,36 +54,56 @@ end
 
 # Extract links for each individual CFP (from HTML containing list of CFPs)
 def scrape_cfp_links(content)
-  links = Array.new
+  page = Nokogiri::HTML(content)
 
-  content.scan(/<a\shref="(.*?)">/) do |capture|
-    servlet_query = capture[0]
-    links.push "http://www.wikicfp.com#{servlet_query}"
+  event_links = Array.new
+
+  links = page.css("a")
+  links.each do |a|
+    if a["href"].include? "showcfp"
+      event_links.push "http://wikicfp.com#{a["href"]}"
+    end
   end
 
-  return links
+  return event_links
 end
 
 # Scrapes info about a particular CFP and stores it in the database
 def scrape_and_store_cfp_info(category_id, link)
   uri = link
-  response = Net::HTTP.get_response(URI.parse(uri))
-  body = response.body
+  page = Nokogiri::HTML(open(uri))
 
-  # http://xkcd.com/1171/ (s/perl/ruby)
-  event_name = body[/<title>(.*?):.*<\/title>/,1].strip
-  event_full_name = (body[/<title>.*?:(.*)<\/title>/,1] || event_name).strip
-  event_date = body[/When<\/th>\s*<td\salign="center">(.*?)<\/td>/m,1].strip
-  event_location = body[/Where<\/th>\s*<td\salign="center">(.*?)<\/td>/m,1].strip
+  event = page.css('title').text
 
-  official_link = (body[/Link:\s<a\shref="(.*?)"/,1] || "N/A").strip
-  wikicfp_link = link
+  headers = Array.new
+  data = Array.new
 
-  abstract_due = (body[/Abstract\sRegistration\sDue.*?([A-Z]{1}[a-z]{2}\s\d{1,2},\s\d{4}?)/m,1] || "N/A").strip
-  submission_due = (body[/Submission\sDeadline.*?([A-Z]{1}[a-z]{2}\s\d{1,2},\s\d{4}?)/m,1] || "N/A").strip
-  notification_due = (body[/Notification\sDue.*?([A-Z]{1}[a-z]{2}\s\d{1,2},\s\d{4}?)/m,1] || "N/A").strip
-  final_due = (body[/Final\sVersion\sDue.*?([A-Z]{1}[a-z]{2}\s\d{1,2},\s\d{4}?)/m,1] || "N/A").strip
+  # Get Table Headers
+  page.xpath('//tr/th').each do |e|
+    headers.push(e.text.to_s)
+  end
 
+
+  # Get Table Data
+  page.xpath('//tr/th/following-sibling::*').each do |d|
+    data.push(d.text.strip)
+  end
+
+  hash = Hash[headers.zip(data)]
+
+  event_name = event[/(.*?):/,1].strip
+  event_full_name = (event[/:(.*)/,1] || event_name).strip
+
+  event_date = (hash["When"] || "N/A")
+  event_location = (hash["Where"] || "N/A")
+
+  abstract_due = (hash["Abstract Registration Due"] || "N/A")
+  submission_due = (hash["Submission Deadline"] || "N/A")
+  notification_due = (hash["Notification Due"] || "N/A")
+  final_due = (hash["Final Version Due"] || "N/A")
+
+  official_link = (page.to_s[/Link:\s*<a\shref="(.*?)"/,1] || "N/A").strip
+  wikicfp_link = uri
 
   db = SQLite3::Database.new "#{$script_dir}/cfps.db"
   db.execute("INSERT INTO event (id, category_id, name, full_name, date, location, abstract_due, submission_due, notification_due, final_due, wikicfp_link, official_link)
@@ -93,7 +114,6 @@ end
 
 
 # Main
-
 puts "Script dir: #{$script_dir}\n"
 categories = load_categories("#{$script_dir}/categories_full.txt")
 
