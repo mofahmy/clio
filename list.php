@@ -12,7 +12,7 @@ function print_html_begin() {
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script src="js/accordion.js"></script>
+    <script src="js/accordion-mo.js"></script>
 </head>
 
 <body>
@@ -93,7 +93,7 @@ function print_cfp($name, $full_name, $date, $location, $wikicfp_link, $official
 }
 
 function print_category_cfps($category_id) {
-  $db = new PDO('sqlite:cfps.db');
+  $db = new PDO('sqlite:scripts/cfps.db');
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   $select = 'SELECT * FROM event WHERE category_id = :category_id';
@@ -124,7 +124,7 @@ function print_category_cfps($category_id) {
 }
 
 function print_category($category_id) {
-  $db = new PDO('sqlite:cfps.db');
+  $db = new PDO('sqlite:scripts/cfps.db');
   $db->setAttribute(PDO::ATTR_ERRMODE,
                     PDO::ERRMODE_EXCEPTION);
 
@@ -146,7 +146,7 @@ function print_category($category_id) {
 }
 
 function get_category_name($category_id) {
-  $db = new PDO('sqlite:cfps.db');
+  $db = new PDO('sqlite:scripts/cfps.db');
   $db->setAttribute(PDO::ATTR_ERRMODE,
                     PDO::ERRMODE_EXCEPTION);
 

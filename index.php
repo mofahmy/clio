@@ -68,7 +68,7 @@ HTML;
 function print_checkboxes() {
   //echo "<form method=\"get\" action=\"index.php\">";
 
-   $db = new PDO('sqlite:cfps.db');
+   $db = new PDO('sqlite:scripts/cfps.db');
    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
    $select = 'SELECT * FROM category';
