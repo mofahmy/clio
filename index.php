@@ -112,11 +112,6 @@ function print_checkboxes() {
      if (isset($col4[$i])) { echo "$col4[$i]\n"; }
    }
    
-   //foreach ($col1 as $item) { echo "$item\n"; }
-   //foreach ($col2 as $item) { echo "$item\n"; }
-   //foreach ($col3 as $item) { echo "$item\n"; }
-   //foreach ($col4 as $item) { echo "$item\n"; }
-   
    echo "</ul>\n</div>\n";
    echo "<div id=\"clearer\" class=\"clearer\"></div><br><br>\n";
    echo "<center><button onclick=\"redirect()\" class=\"getcfp-button\">Get CFPs</button></center>";
