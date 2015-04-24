@@ -162,10 +162,7 @@ function get_category_name($category_id) {
 
 function get_category_ids() {
   if (isset($_GET["category_ids"])) {
-    //$array = $_GET["category_ids"];
-    //rsort($array);
-    //return explode(',',$array);
-    //return explode(',',$_GET["category_ids"]);
+
     $array = explode(',',$_GET["category_ids"]);
     sort($array);
     return $array;
